@@ -3,6 +3,11 @@ const taskInput = document.getElementById('texto-tarefa');
 const orderedList = document.getElementById('lista-tarefas');
 const eraseButton = document.getElementById('apaga-tudo');
 const completedButton = document.getElementById('remover-finalizados');
+const saveButton = document.getElementById('salvar-tarefas');
+
+window.onload = () => {
+  orderedList.innerHTML = localStorage.getItem('Tasks');
+};
 
 function addListItem() {
   addButton.addEventListener('click', () => {
@@ -72,3 +77,11 @@ function eraseCompleted() {
 }
 
 eraseCompleted();
+
+function storeListItems() {
+  saveButton.addEventListener('click', () => {
+    localStorage.setItem('Tasks', orderedList.innerHTML);
+  });
+}
+
+storeListItems();

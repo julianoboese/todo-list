@@ -2,6 +2,7 @@ const addButton = document.getElementById('criar-tarefa');
 const taskInput = document.getElementById('texto-tarefa');
 const orderedList = document.getElementById('lista-tarefas');
 const eraseButton = document.getElementById('apaga-tudo');
+const completedButton = document.getElementById('remover-finalizados');
 
 function addListItem() {
   addButton.addEventListener('click', () => {
@@ -59,3 +60,15 @@ function eraseList() {
 }
 
 eraseList();
+
+function eraseCompleted() {
+  completedButton.addEventListener('click', () => {
+    for (let i = orderedList.children.length - 1; i >= 0; i -= 1) {
+      if (orderedList.children[i].classList.contains('completed')) {
+        orderedList.children[i].remove();
+      }
+    }
+  });
+}
+
+eraseCompleted();

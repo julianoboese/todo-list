@@ -4,6 +4,9 @@ const orderedList = document.getElementById('lista-tarefas');
 const eraseButton = document.getElementById('apaga-tudo');
 const completedButton = document.getElementById('remover-finalizados');
 const saveButton = document.getElementById('salvar-tarefas');
+const upButton = document.getElementById('mover-cima');
+const downButton = document.getElementById('mover-baixo');
+const removeButton = document.getElementById('remover-selecionado');
 
 window.onload = () => {
   orderedList.innerHTML = localStorage.getItem('Tasks');
@@ -23,8 +26,8 @@ addListItem();
 function resetGreyItem() {
   const listItems = orderedList.children;
   for (let i = 0; i < listItems.length; i += 1) {
-    if (listItems[i].style.backgroundColor === 'rgb(128, 128, 128)') {
-      listItems[i].style.backgroundColor = 'white';
+    if (listItems[i].classList.contains('selected')) {
+      listItems[i].classList.remove('selected');
     }
   }
 }
@@ -34,7 +37,7 @@ function greyBackground() {
     const item = event.target;
     if (item.id !== 'lista-tarefas') {
       resetGreyItem();
-      item.style.backgroundColor = 'rgb(128, 128, 128)';
+      item.classList.add('selected');
     }
   });
 }
@@ -85,3 +88,39 @@ function storeListItems() {
 }
 
 storeListItems();
+
+function moveUp() {
+  upButton.addEventListener('click', () => {
+    if (document.querySelector('.selected') !== null) {
+      const selectedItem = document.querySelector('.selected');
+      if (orderedList.firstElementChild !== selectedItem) {
+        orderedList.insertBefore(selectedItem, selectedItem.previousElementSibling);
+      }
+    }
+  });
+}
+
+moveUp();
+
+function moveDown() {
+  downButton.addEventListener('click', () => {
+    if (document.querySelector('.selected') !== null) {
+      const selectedItem = document.querySelector('.selected');
+      if (orderedList.lastElementChild !== selectedItem) {
+        orderedList.insertBefore(selectedItem, selectedItem.nextElementSibling.nextElementSibling);
+      }
+    }
+  });
+}
+
+moveDown();
+
+function removeSelected() {
+  removeButton.addEventListener('click', () => {
+    if (document.querySelector('.selected') !== null) {
+      document.querySelector('.selected').remove();
+    }
+  });
+}
+
+removeSelected();

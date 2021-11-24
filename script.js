@@ -14,6 +14,14 @@ function addListItem() {
     orderedList.appendChild(newTask);
     taskInput.value = '';
   });
+  taskInput.addEventListener('keyup', (event) => {
+    if (event.key === 'Enter') {
+      const newTask = document.createElement('li');
+      newTask.innerHTML = taskInput.value;
+      orderedList.appendChild(newTask);
+      taskInput.value = '';
+    }
+  });
 }
 
 addListItem();
